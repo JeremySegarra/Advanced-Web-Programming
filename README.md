@@ -1,3 +1,11 @@
-# Advanced-Web-Programming
+# This repo will hold my work in class
 
-## This is my in class repo where all the in class examples/work will be stored. 
+## Graduate Level Advanced Web Programming - Spring 2022
+
+- HTML
+- CSS
+- Bulma
+- Vue 3
+- Node JS
+- Express
+- CI/CD
