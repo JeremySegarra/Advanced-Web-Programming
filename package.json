@@ -1,0 +1,12 @@
+{
+  "name": "advanced-web-programming",
+  "version": "1.0.0",
+  "description": "## Graduate Level Advanced Web Programming - Spring 2022",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeremySegarra/Advanced-Web-Programming.git"
+  }
+}
