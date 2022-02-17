@@ -1,16 +1,26 @@
-const http = require("http");
+const express = require("express");
 
-const hostname = "127.0.0.1";
-const port = 3000; //a port is a number attached to a data packet from a network
+const app = express();
+const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
-});
+app
+  .get("/", (req, res) => {
+    res.send("You are on the homepage");
+  })
+  .get("/about", (req, res) => {
+    res.send("You are on the about page");
+  })
+  .get("/contact", (req, res) => {
+    res.send({
+      email: "plotkin@newpaltz.edu",
+      phone: "123-456-7890",
+      twitter: "@jerpaltz",
+      instagram: "@jerpaltz",
+    });
+  });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
 
 //for package.json "^4.17.3" carrot means get me the latest "~4.17.3" tilda means get me all the patches "4.17.3" means get me exact version
