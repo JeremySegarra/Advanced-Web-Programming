@@ -1,4 +1,47 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, reactive, onMounted } from "vue";
+//commit statement: working at least as good as the framework
+//got dist folder from npm run build
+//create vue.js.yml
+const message = ref("Hello Vue!");
+const currentTab = ref("All");
+const prompt = ref("Waiting for input...");
+const notifications = reactive([
+  {
+    type: "primary",
+    message: "This is a primary notification",
+  },
+  {
+    type: "link",
+    message: "This is a primary notification",
+  },
+  {
+    type: "success",
+    message: "This is a primary notification",
+  },
+  {
+    type: "warning",
+    message: "This is a primary notification",
+  },
+  {
+    type: "danger",
+    message: "I cant believe you jsut did that!",
+  },
+]);
+
+function cardClick() {
+  message.value = "You clicked the card!";
+}
+function close(index: number) {
+  notifications.splice(index, 1);
+}
+
+onMounted(() => {
+  setInterval(() => {
+    prompt.value += ".";
+  }, 500);
+});
+</script>
 
 <template>
   <div class="">
