@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const isOpen = ref(false);
 </script>
@@ -30,14 +31,18 @@ const isOpen = ref(false);
       </div>
       <div class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
-          <a class="navbar-item"> Home </a>
-          <a class="navbar-item"> Documentation </a>
+          <router-link class="navbar-item" to="/"> Home </router-link>
+          <router-link class="navbar-item" to="/messages">
+            Messages
+          </router-link>
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link"> More </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item"> About </a>
+              <router-link class="navbar-item" to="/about"> About </router-link>
               <a class="navbar-item"> Jobs </a>
-              <a class="navbar-item"> Contact </a>
+              <router-link class="navbar-item" to="/contact">
+                Contact
+              </router-link>
               <hr class="navbar-divider" />
               <a class="navbar-item"> Report an issue </a>
             </div>
@@ -77,10 +82,12 @@ const isOpen = ref(false);
 
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary">
+              <router-link class="button is-primary" to="/signup">
                 <strong>Sign up</strong>
-              </a>
-              <a class="button is-light"> Log in </a>
+              </router-link>
+              <router-link class="button is-light" to="/login">
+                Log in
+              </router-link>
             </div>
           </div>
         </div>
