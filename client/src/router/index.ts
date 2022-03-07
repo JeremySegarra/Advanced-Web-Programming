@@ -30,7 +30,7 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   //list of paths that require login!
-  if (["/messages"].includes(to.path)) {
+  if (["/messages", "/wall", "/feed"].includes(to.path)) {
     if (!session.user) {
       return "/login";
     }
