@@ -1,4 +1,4 @@
-/*
+/* B"H
  */
 
 export interface User {
@@ -15,28 +15,28 @@ export const list: User[] = [
   {
     firstName: "John",
     lastName: "Doe",
-    handle: "sfsdf",
+    handle: "johndoe",
     password: "password",
-    email: "hogj@.com",
-    pic: "/assets/logo.png",
+    email: "jhon@doe.com",
+    pic: "https://randomuser.me/api/portraits/men/1.jpg",
     id: 1,
   },
   {
-    firstName: "vlasdd",
-    lastName: "putin",
-    handle: "sfsdfasd",
-    password: "password2",
-    email: "hogjadaw@.com",
-    pic: "/assets/logo.png",
-    id: 1,
+    firstName: "Vladimir",
+    lastName: "Putin",
+    handle: "russian_dictator",
+    password: "long table",
+    email: "jhon@doe.com",
+    pic: "https://randomuser.me/api/portraits/men/2.jpg",
+    id: 2,
   },
   {
-    firstName: "kim jong",
-    lastName: "un",
+    firstName: "Kamala",
+    lastName: "Harris",
     handle: "vp",
     password: "password",
-    email: "hogawdajadaw@.org",
-    pic: "/assets/logo.png",
-    id: 1,
+    email: "kamala@whitehouse.org",
+    pic: "https://randomuser.me/api/portraits/women/3.jpg",
+    id: 3,
   },
 ];
