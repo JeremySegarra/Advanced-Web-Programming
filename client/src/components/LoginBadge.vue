@@ -10,7 +10,6 @@ import session, { Logout } from "../models/session";
     <router-link class="button is-light" to="/login"> Log in </router-link>
   </div>
   <div class="buttons" v-else>
-    \
     <div class="avatar">
       <img :src="session.user.pic" />
       <div>
@@ -21,7 +20,9 @@ import session, { Logout } from "../models/session";
         <i>{{ session.user.email }}</i>
       </div>
     </div>
-    <a class="button is-primary" @click="Logout()"></a>
+    <a class="button is-primary" @click="Logout()">
+      <strong>Log out</strong>
+    </a>
   </div>
 </template>
 
@@ -33,7 +34,6 @@ import session, { Logout } from "../models/session";
   margin-right: 0.5em;
   gap: 0.5em;
   line-height: 1em;
-
   img {
     width: 48px;
     height: 48px;

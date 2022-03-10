@@ -1,34 +1,15 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
-//commit statement: working at least as good as the framework
-//got dist folder from npm run build
-//create vue.js.yml
 const message = ref("Hello Vue!");
 const currentTab = ref("All");
 const prompt = ref("Waiting for input...");
 const notifications = reactive([
-  {
-    type: "primary",
-    message: "This is a primary notification",
-  },
-  {
-    type: "link",
-    message: "This is a primary notification",
-  },
-  {
-    type: "success",
-    message: "This is a primary notification",
-  },
-  {
-    type: "warning",
-    message: "This is a primary notification",
-  },
-  {
-    type: "danger",
-    message: "I cant believe you jsut did that!",
-  },
+  { type: "primary", message: "This is a primary notification" },
+  { type: "link", message: "This is a link notification" },
+  { type: "success", message: "Yay you did it!" },
+  { type: "warning", message: "Uh Oh! Watch out!" },
+  { type: "danger", message: "I cant believe you just did that!" },
 ]);
-
 function cardClick() {
   message.value = "You clicked the card!";
 }
@@ -77,13 +58,12 @@ onMounted(() => {
         </aside>
       </div>
 
-      <div class="column is-half content">
+      <div class="column is-half">
         <h1 class="title">Bulma Examples</h1>
         <h2 class="subtitle">Some examples of using Bulma</h2>
 
-        <div class="card">
+        <div class="card" @click="cardClick">
           <div class="card-image">
-            <button class="delete"></button>
             <figure class="image is-4by3">
               <img
                 src="https://bulma.io/images/placeholders/1280x960.png"
@@ -91,7 +71,8 @@ onMounted(() => {
               />
             </figure>
           </div>
-          <div class="card-content" @click="cardClick">
+          <button class="delete"></button>
+          <div class="card-content">
             <div class="media">
               <div class="media-left">
                 <figure class="image is-48x48">
@@ -109,22 +90,12 @@ onMounted(() => {
 
             <div class="content">
               {{ message }}
-
               <br />
-              <a>@bulmaio</a>. <a href="#">#css</a>
-              <a href="#">#responsive</a>
+              <a>@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
               <br />
               <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
             </div>
           </div>
-        </div>
-
-        <div
-          v-for="(x, i) in notifications"
-          :class="`notification is-${x.type}`"
-        >
-          <button class="delete" @click="close(i)"></button>
-          {{ x.message }}
         </div>
       </div>
 
@@ -133,27 +104,27 @@ onMounted(() => {
           <p class="panel-heading">Primary</p>
           <p class="panel-tabs">
             <a
-              :class="{ 'is-active': currentTab === 'All' }"
+              :class="{ 'is-active': currentTab == 'All' }"
               @click="currentTab = 'All'"
               >All</a
             >
             <a
-              :class="{ 'is-active': currentTab === 'Public' }"
+              :class="{ 'is-active': currentTab == 'Public' }"
               @click="currentTab = 'Public'"
               >Public</a
             >
             <a
-              :class="{ 'is-active': currentTab === 'Private' }"
+              :class="{ 'is-active': currentTab == 'Private' }"
               @click="currentTab = 'Private'"
               >Private</a
             >
             <a
-              :class="{ 'is-active': currentTab === 'Sources' }"
+              :class="{ 'is-active': currentTab == 'Sources' }"
               @click="currentTab = 'Sources'"
               >Sources</a
             >
             <a
-              :class="{ 'is-active': currentTab === 'Forks' }"
+              :class="{ 'is-active': currentTab == 'Forks' }"
               @click="currentTab = 'Forks'"
               >Forks</a
             >
@@ -200,4 +171,10 @@ onMounted(() => {
   </div>
 </template>
 
-<style></style>
+<style>
+.card .delete {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+</style>
