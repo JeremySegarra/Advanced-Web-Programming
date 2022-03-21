@@ -30,6 +30,7 @@ jobs:
 
       - name: Copy static files
         run: |
+          mkdir  dist/server/public/
           cp -a client/dist/. dist/server/public/
           cp -a server/. dist/server/
           cp package.json dist/
