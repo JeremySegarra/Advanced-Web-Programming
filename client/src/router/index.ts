@@ -35,6 +35,10 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   //list of paths that require login!
+  if (session.destinationUrl == null && to.path != "/login") {
+    session.destinationUrl = to.path;
+  }
+
   console.log({ to });
   const protectedUrls = ["/messages", "/wall", "/feed", "/hidden"];
   console.table({ protectedUrls });

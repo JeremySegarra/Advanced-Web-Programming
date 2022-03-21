@@ -8,6 +8,7 @@ import { useMessages } from "./messages";
 const session = reactive({
   //typescript is a non null language so null as users.User cannot convert
   user: null as users.User | null,
+  destinationUrl: null as string | null,
 });
 
 export async function Login(handle: String, password: String) {
@@ -27,7 +28,7 @@ export async function Login(handle: String, password: String) {
       message: `Welcome Back ${user.firstName}!`,
     });
     session.user = user;
-    router.push("/messages");
+    router.push(session.destinationUrl ?? "/wall"); //if destination value is not null then use /wall or vise versa
   } catch (error: any) {
     messages.notifications.push({
       type: "danger",

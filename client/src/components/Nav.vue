@@ -34,9 +34,7 @@ const isOpen = ref(false);
       <div class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
           <router-link class="navbar-item" to="/"> Home </router-link>
-          <router-link class="navbar-item" to="/messages">
-            Messages
-          </router-link>
+          <router-link class="navbar-item" to="/wall"> Wall </router-link>
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link"> More </a>
             <div class="navbar-dropdown">
