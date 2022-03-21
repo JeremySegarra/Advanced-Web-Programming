@@ -1,23 +1,21 @@
 const express = require("express");
 
+const usersController = require("./controllers/users");
+
 const app = express();
 const port = 3000;
 
 app
-  .get("/", (req, res) => {
+
+  //this line returns a middleware, static is a method from express.
+  //this fucntion looks at the path see if any file inside public matches it and it will serve it up and call next()
+  //what was your home directory when we started out app (server) we can use server/public/ or dirname + the path
+  .use("/", express.static(__dirname + "/public/"))
+
+  .get("/api/", (req, res) => {
     res.send("You are on the homepage");
   })
-  .get("/about", (req, res) => {
-    res.send("You are on the about page");
-  })
-  .get("/contact", (req, res) => {
-    res.send({
-      email: "plotkin@newpaltz.edu",
-      phone: "123-456-7890",
-      twitter: "@jerpaltz",
-      instagram: "@jerpaltz",
-    });
-  });
+  .use("/api/users", usersController); //user controller is a router
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
