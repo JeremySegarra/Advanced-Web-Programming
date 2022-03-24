@@ -1,3 +1,5 @@
+let highestId = 3;
+
 const list = [
   {
     firstName: "John",
@@ -31,5 +33,17 @@ const list = [
 function get(id) {
   return userModel.list.find((user) => user.id === parseInt(id));
 }
+
+//dont do it this way just another way if this is put under the other exports it will break so order matters
+module.exports = {
+  create(user) {
+    user.id = ++highestId;
+    //plus signs is pre decrement
+
+    list.push(user);
+    return user;
+  },
+};
+
 module.exports.list = list; //this is just a named export .list
 module.exports.get = get; //export our function as a named export

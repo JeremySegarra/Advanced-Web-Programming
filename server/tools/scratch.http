@@ -1,0 +1,18 @@
+http://localhost:3000
+
+###
+GET http://localhost:3000/api/users/
+
+###
+
+POST http://localhost:3000/api/users
+Content-Type: application/json
+{
+    "firstName": "Donald",
+    "lastName": "Christan",
+    "handle": "johndoe",
+    "password": "Hugo",
+    "email": "jhon@doe.com",
+    "pic": "https://randomuser.me/api/portraits/men/1.jpg"
+    
+  }
