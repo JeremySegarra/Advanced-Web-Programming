@@ -31,14 +31,14 @@ const list = [
 ];
 
 function get(id) {
-  return userModel.list.find((user) => user.id === parseInt(id));
+  return list.find((user) => user.id === parseInt(id));
 }
 
 //dont do it this way just another way if this is put under the other exports it will break so order matters
 module.exports = {
   create(user) {
     user.id = ++highestId;
-    //plus signs is pre decrement
+    //plus signs is pre increment
 
     list.push(user);
     return user;
