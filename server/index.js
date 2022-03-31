@@ -3,7 +3,13 @@ const express = require("express");
 const usersController = require("./controllers/users");
 
 const app = express();
+//needed process.env.PORT because every server has a different PORT heroku needs to run on that PORT they assign to use, they use environement variables
+//every process has a bunch of environemnt variables in it that can be accessed, the process gets you the environemnt variables. .env has many environment variables in it.
+//reverse proxy we come in to all the exact same server that handles thousands of different websites and based off the url, im going to execute another server and pass it back to the client
 const port = process.env.PORT || 3000;
+//if no environment variable exists then put us on port 3000
+//Heroku will set that port
+console.log(process.env);
 
 app
 
