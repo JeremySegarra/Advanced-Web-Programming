@@ -1,3 +1,5 @@
+require("dotenv").config(); //this allows us to create our own environemnt variables we downloaded in Package json too only have to do this once in the application
+
 const express = require("express");
 //tell professor to send a message to get classsroom fixed
 const usersController = require("./controllers/users");
@@ -9,6 +11,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 //if no environment variable exists then put us on port 3000
 //Heroku will set that port
+//Setting envorionment variables on your local computer will not affect the varaibles on Heroku
 console.log(process.env);
 
 app
@@ -22,7 +25,10 @@ app
   .use(express.json())
 
   .get("/api/", (req, res) => {
-    res.send("You are on the homepage");
+    res.send(
+      "You are at the root of the API. For the best class ever - " +
+        process.env.BEST_CLASS_EVER //we are useing our own environement varaible here
+    );
   })
   .use("/api/users", usersController); //user controller is a router
 
