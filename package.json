@@ -13,7 +13,8 @@
     "url": "git+https://github.com/JeremySegarra/Advanced-Web-Programming.git"
   },
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
