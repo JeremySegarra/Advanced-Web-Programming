@@ -1,16 +1,16 @@
-http://localhost:3000
+http://localhost:3001
 
 ###
-GET http://localhost:3000/api/users/
+GET http://localhost:3001/api/users/
 ###
-GET http://localhost:3000/api/users/1
+GET http://localhost:3001/api/users/1
 
 ###
-DELETE http://localhost:3000/api/users/1
+DELETE http://localhost:3001/api/users/1
 
 ###
 
-POST http://localhost:3000/api/users
+POST http://localhost:3001/api/users
 Content-Type: application/json
 
   {
@@ -18,16 +18,31 @@ Content-Type: application/json
     "lastName": "Christan",
     "handle": "johndoe",
     "password": "Hugo",
-    "email": "jhon@doe.com",
+    "email": "president@newpaltz.edu",
     "pic": "https://randomuser.me/api/portraits/men/1.jpg"
     
   }
 
 ###
 
-PATCH http://localhost:3000/api/users/2
+PATCH http://localhost:3001/api/users/2
 Content-Type: application/json
 
   {
-    "lastName": "Putin III"
+    "lastName": "Putin III",
+    "password": "Ukraine",
+    "email": "save@ukrain.com"
+
+
+  }
+
+###
+
+POST http://localhost:3001/api/users/login
+Content-Type: application/json
+
+  {
+    "email": "save@ukrain.com",
+    "password": "Ukraine"
+    
   }
