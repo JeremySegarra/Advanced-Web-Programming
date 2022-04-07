@@ -1,5 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { db, isConnected, ObjectId } = require("./mongo");
+
+//set environment variables on heroku as well the URI and changes this magic strings
+const collection = db.db("gratitute").collection("users");
 
 let highestId = 3;
 
@@ -33,20 +37,24 @@ const list = [
   },
 ];
 
-function get(id) {
+async function get(id) {
   //so we copy all the properties of the user to the object and we add 1 more property here as undefeined
+  const user = await collection.findOne({ _id: new ObjectId(id) });
   return {
-    ...list.find((user) => user.id === parseInt(id)),
+    ...user,
     password: undefined,
   };
 }
 
-function remove(id) {
-  //findIndex returns the number the actual index not the object like the find() method
-  const index = list.findIndex((user) => user.id === parseInt(id));
-  const user = list.splice(index, 1);
+async function remove(id) {
+  //this does the same as the 2 below
+  const user = await collection.findOneAndDelete({ _id: new ObjectId(id) });
 
-  return { ...user[0], password: undefined };
+  //findIndex returns the number the actual index not the object like the find() method
+  // const index = list.findIndex((user) => user.id === parseInt(id));
+  // const user = list.splice(index, 1);
+
+  return { ...user.value, password: undefined };
 }
 async function update(id, newUser) {
   //we want the index because we are updating that exact object
@@ -94,7 +102,13 @@ function fromToken(token) {
   });
 }
 
+function seed() {
+  return collection.insertMany(list);
+}
+
 module.exports = {
+  collection, //exports our collection
+  seed, //exports our seed function
   async create(user) {
     user.id = ++highestId;
     //plus signs is pre increment
@@ -125,8 +139,12 @@ module.exports = {
   login,
   fromToken,
   //this made a getter function
-  get list() {
-    return list.map((x) => ({ ...x, password: undefined }));
+  async getList() {
+    //we wrapped await with toArray map is after so we are calling the map on the results of the await
+    return (await collection.find().toArray()).map((x) => ({
+      ...x,
+      password: undefined,
+    }));
   },
 
   //putting remove here adds another property to this object and it includes whatever is inside the function it includes it
