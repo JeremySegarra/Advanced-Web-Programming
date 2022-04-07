@@ -1,0 +1,37 @@
+GET http://localhost:3001/api/posts/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
+
+###
+GET http://localhost:3001/api/posts/wall
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
+
+###
+GET http://localhost:3001/api/posts/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
+###
+
+DELETE  http://localhost:3001/api/posts/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
+###
+POST http://localhost:3001/api/posts
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
+    
+    {
+        "src": "https://w2.chabad.org/media/images/1187/SvDB11878116.jpg?_i=_n504BC99DD0473598AAE3BCDC5D75568D",
+        "caption": "Of Mugs and Family Ties",
+        "owner": 1,
+        "likes": [],
+        "comments": [],
+        "isPublic": true
+     }
+
+
+###
+PATCH http://localhost:3001/api/posts/2
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
+
+{
+    "owner": 3
+}

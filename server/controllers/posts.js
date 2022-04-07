@@ -1,35 +1,38 @@
-const express = require("express"); //importing express
-const app = express.Router(); //the router object is made to be used as middleware works very similar to express()
+const express = require("express");
+const app = express.Router();
 
-const userModel = require("../models/user");
+const postModel = require("../models/posts");
+
 const CREATED_STATUS = 201;
 
 app
   .get("/", (req, res) => {
-    res.send(userModel.list);
+    res.send(postModel.list);
+  })
+  .get("/wall", (req, res) => {
+    res.send(postModel.list.filter((post) => post.owner === req.user.id));
   })
   .get("/:id", (req, res) => {
-    const user = userModel.get(req.params.id); //we exported this function, model should know what database its accessing, models do not know what plateform we are using
-    //controller should know its working with express but express does not know what database
-    res.send(user);
+    const post = postModel.get(req.params.id);
+    res.send(post);
   })
   .post("/", (req, res) => {
-    const user = userModel.create(req.body);
-    res.status(CREATED_STATUS).send(user);
-    //Your controller is never supposed to know what database you are using
-    //always avoid adding magic numbers to your code, i.e means something to the computer
+    const post = postModel.create(req.body);
+    res.status(CREATED_STATUS).send(post);
   })
   .delete("/:id", (req, res) => {
-    const user = userModel.remove(req.params.id);
+    const post = postModel.remove(req.params.id);
 
-    res.send({ success: true, errors: [], data: user });
+    res.send({ success: true, errors: [], data: post });
   })
-  //put replaces the object patch does not
   .patch("/:id", (req, res) => {
-    //we pass both
-    const user = userModel.update(req.params.id, req.body);
+    const post = postModel.update(req.params.id, req.body);
 
-    res.send({ success: true, errors: [], data: user });
+    res.send({ success: true, errors: [], data: post });
   });
 
 module.exports = app; //This is how common js exports items
+//we exported this function, model should know what database its accessing, models do not know what plateform we are using
+//controller should know its working with express but express does not know what database
+//Your controller is never supposed to know what database you are using
+//always avoid adding magic numbers to your code, i.e means something to the computer
