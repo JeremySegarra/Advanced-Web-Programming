@@ -2,11 +2,14 @@ http://localhost:3001
 
 ###
 GET http://localhost:3001/api/users/
-###
-GET http://localhost:3001/api/users/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
 
 ###
-DELETE http://localhost:3001/api/users/1
+GET http://localhost:3001/api/users/handle/vp
+
+###
+DELETE http://localhost:3001/api/users/624f3d2d1d8558ee9a10c4cd
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW4uY29tIiwicGljIjoiaHR0cHM6Ly9yYW5kb211c2VyLm1lL2FwaS9wb3J0cmFpdHMvbWVuLzIuanBnIiwiaWQiOjIsImlhdCI6MTY0OTA5ODU0Nn0.iFcxo-3tNjuKSYJSBQleWy5tmD3ea17HqfK0QS8vbGg
 
 ###
 
@@ -46,3 +49,9 @@ Content-Type: application/json
     "password": "Ukraine"
     
   }
+###
+
+POST http://localhost:3001/api/users/seed
+Content-Type: application/json
+
+  

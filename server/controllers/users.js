@@ -6,14 +6,35 @@ const userModel = require("../models/user");
 const CREATED_STATUS = 201;
 
 app
-  .get("/", requireAuth, (req, res) => {
-    res.send(userModel.list);
+  .get("/", requireAuth, (req, res, next) => {
+    userModel
+      .getList()
+      .then((users) => {
+        res.send(users);
+      })
+      .catch(next);
   })
 
-  .get("/:id", (req, res) => {
-    const user = userModel.get(req.params.id); //we exported this function, model should know what database its accessing, models do not know what plateform we are using
+  .get("/handle/:handle", (req, res, next) => {
+    // const user = userModel.get(req.params.id); //we exported this function, model should know what database its accessing, models do not know what plateform we are using
     //controller should know its working with express but express does not know what database
-    res.send(user);
+    userModel
+      .getByHandle(req.params.handle)
+      .then((user) => {
+        res.send(user);
+      })
+      .catch(next);
+  })
+
+  .get("/:id", (req, res, next) => {
+    // const user = userModel.get(req.params.id); //we exported this function, model should know what database its accessing, models do not know what plateform we are using
+    //controller should know its working with express but express does not know what database
+    userModel
+      .get(req.params.id)
+      .then((user) => {
+        res.send(user);
+      })
+      .catch(next);
   })
   .post("/", (req, res, next) => {
     userModel
@@ -29,10 +50,16 @@ app
     //Your controller is never supposed to know what database you are using
     //always avoid adding magic numbers to your code, i.e means something to the computer
   })
-  .delete("/:id", requireAuth, (req, res) => {
-    const user = userModel.remove(req.params.id);
+  .delete("/:id", requireAuth, (req, res, next) => {
+    userModel
+      .remove(req.params.id)
+      .then((user) => {
+        res.send({ success: true, errors: [], data: user });
+      })
+      .catch(next);
+    // const user = userModel.remove(req.params.id);
 
-    res.send({ success: true, errors: [], data: user });
+    // res.send({ success: true, errors: [], data: user });
   })
   //put replaces the object patch does not
   .patch("/:id", (req, res) => {
@@ -46,6 +73,14 @@ app
       .login(req.body.email, req.body.password)
       .then((user) => {
         res.send(user);
+      })
+      .catch(next);
+  })
+  .post("/seed", (req, res, next) => {
+    userModel
+      .seed()
+      .then((x) => {
+        res.send({ success: true, errors: [], data: [] });
       })
       .catch(next);
   });
