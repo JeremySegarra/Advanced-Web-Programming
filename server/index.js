@@ -19,6 +19,7 @@ app
 
   .use((req, res, next) => {
     const auth = req.headers.authorization;
+
     if (auth) {
       //we use split because of bearer in our posts.http
       const token = auth.split(" ")[1];

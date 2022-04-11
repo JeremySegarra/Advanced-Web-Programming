@@ -40,6 +40,20 @@ const list = [
 async function get(id) {
   //so we copy all the properties of the user to the object and we add 1 more property here as undefeined
   const user = await collection.findOne({ _id: new ObjectId(id) });
+  if (!user) {
+    throw { statusCode: 404, message: "User not found" };
+  }
+  return {
+    ...user,
+    password: undefined,
+  };
+}
+async function getByHandle(handle) {
+  //so we copy all the properties of the user to the object and we add 1 more property here as undefeined
+  const user = await collection.findOne({ handle });
+  if (!user) {
+    throw { statusCode: 404, message: "User not found" };
+  }
   return {
     ...user,
     password: undefined,
@@ -57,15 +71,14 @@ async function remove(id) {
   return { ...user.value, password: undefined };
 }
 async function update(id, newUser) {
-  //we want the index because we are updating that exact object
-  const index = list.findIndex((user) => user.id === parseInt(id));
-  const oldUser = list[index];
-  //update this later professor had to leave
   newUser.password = await bcrypt.hash(newUser.password, 10);
 
-  console.log(list);
+  newUser = await collection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    { $set: newUser },
+    { returnDocument: "after" }
+  );
   //we find the item in our list, we get the old user object, then we say that item is going to be updated with some of the old user and the new user
-  newUser = list[index] = { ...oldUser, ...newUser };
 
   return { ...newUser, password: undefined };
 }
@@ -73,7 +86,7 @@ async function update(id, newUser) {
 //dont do it this way just another way if this is put under the other exports it will break so order matters
 
 async function login(email, password) {
-  const user = list.find((user) => user.email === email);
+  const user = await collection.findOne({ email });
   if (!user) {
     throw { statusCode: 404, message: "User not found" };
   }
@@ -109,8 +122,14 @@ function seed() {
 module.exports = {
   collection, //exports our collection
   seed, //exports our seed function
+  getByHandle,
   async create(user) {
     user.id = ++highestId;
+
+    if (!user.handle) {
+      throw { statusCode: 400, message: "Handle is required" };
+    }
+
     //plus signs is pre increment
 
     //we are going to hash the password, running bcrypt 10 times in a second nopw whole server will be hung for 1 second everything stops
@@ -130,8 +149,10 @@ module.exports = {
     //we got an error saltrounds is a string so we need to put a + infront of it to maker it a number
     user.password = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS);
     console.log(user);
-    throw { message: "fake error" };
-    list.push(user);
+
+    const result = await collection.insertOne(user);
+    user = await get(result.insertedId);
+
     return { ...user, password: undefined };
   },
   remove,
@@ -141,6 +162,7 @@ module.exports = {
   //this made a getter function
   async getList() {
     //we wrapped await with toArray map is after so we are calling the map on the results of the await
+    //We  cannot do a map on a Promise thats why we need to wrap await with find and toarray
     return (await collection.find().toArray()).map((x) => ({
       ...x,
       password: undefined,

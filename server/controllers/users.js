@@ -13,7 +13,17 @@ app
         res.send(users);
       })
       .catch(next);
-    // res.send(userModel.list);
+  })
+
+  .get("/handle/:handle", (req, res, next) => {
+    // const user = userModel.get(req.params.id); //we exported this function, model should know what database its accessing, models do not know what plateform we are using
+    //controller should know its working with express but express does not know what database
+    userModel
+      .getByHandle(req.params.handle)
+      .then((user) => {
+        res.send(user);
+      })
+      .catch(next);
   })
 
   .get("/:id", (req, res, next) => {
@@ -25,8 +35,6 @@ app
         res.send(user);
       })
       .catch(next);
-
-    // res.send(user);
   })
   .post("/", (req, res, next) => {
     userModel
@@ -45,7 +53,7 @@ app
   .delete("/:id", requireAuth, (req, res, next) => {
     userModel
       .remove(req.params.id)
-      .then(() => {
+      .then((user) => {
         res.send({ success: true, errors: [], data: user });
       })
       .catch(next);
