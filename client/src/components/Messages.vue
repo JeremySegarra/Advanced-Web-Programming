@@ -37,7 +37,7 @@ const isOpen = ref(false);
 }
 .notification {
   margin: 0.5rem;
-  width: 100%;
+  width: calc(100% - 1rem);
 }
 .tag {
   position: absolute;

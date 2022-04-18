@@ -10,7 +10,7 @@ app
     userModel
       .getList()
       .then((users) => {
-        res.send(users);
+        res.send({ success: true, errors: [], data: users });
       })
       .catch(next);
   })
@@ -21,7 +21,7 @@ app
     userModel
       .getByHandle(req.params.handle)
       .then((user) => {
-        res.send(user);
+        res.send({ success: true, errors: [], data: user });
       })
       .catch(next);
   })
@@ -32,7 +32,7 @@ app
     userModel
       .get(req.params.id)
       .then((user) => {
-        res.send(user);
+        res.send({ success: true, errors: [], data: user });
       })
       .catch(next);
   })
@@ -40,7 +40,9 @@ app
     userModel
       .create(req.body)
       .then((user) => {
-        res.status(CREATED_STATUS).send(user);
+        res
+          .status(CREATED_STATUS)
+          .send({ success: true, errors: [], data: user });
         //we only run this line of code after
         //if anything goes wrong we can catch and pass it next
         //could also do .catch(x => next)
@@ -72,7 +74,7 @@ app
     userModel
       .login(req.body.email, req.body.password)
       .then((user) => {
-        res.send(user);
+        res.send({ success: true, errors: [], data: user });
       })
       .catch(next);
   })
