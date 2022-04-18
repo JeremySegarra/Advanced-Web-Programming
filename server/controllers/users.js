@@ -80,7 +80,7 @@ app
     userModel
       .seed()
       .then((x) => {
-        res.send({ success: true, errors: [], data: [] });
+        res.send({ success: true, errors: [], data: x });
       })
       .catch(next);
   });

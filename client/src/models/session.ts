@@ -4,6 +4,7 @@ import { reactive } from "vue";
 // import { User, list } from '../models/user'
 import * as users from "../models/user";
 import { useMessages } from "./messages";
+import { api } from "./myFetch";
 
 const session = reactive({
   //typescript is a non null language so null as users.User cannot convert
@@ -11,24 +12,20 @@ const session = reactive({
   destinationUrl: null as string | null,
 });
 
-export async function Login(handle: String, password: String) {
-  const user = users.list.find((u) => u.handle === handle);
+export async function Login(email: String, password: String) {
   const messages = useMessages();
 
   try {
-    if (!user) {
-      //if user is null or undefined we would never reach session.user = user
-      throw { message: "User not found" };
+    const user = await api("users/login", { email, password });
+
+    if (user) {
+      messages.notifications.push({
+        type: "success",
+        message: `Welcome Back ${user.firstName}!`,
+      });
+      session.user = user;
+      router.push(session.destinationUrl ?? "/wall"); //if destination value is not null then use /wall or vise versa
     }
-    if (user.password !== password) {
-      throw { message: "Incorrect password" };
-    }
-    messages.notifications.push({
-      type: "success",
-      message: `Welcome Back ${user.firstName}!`,
-    });
-    session.user = user;
-    router.push(session.destinationUrl ?? "/wall"); //if destination value is not null then use /wall or vise versa
   } catch (error: any) {
     messages.notifications.push({
       type: "danger",

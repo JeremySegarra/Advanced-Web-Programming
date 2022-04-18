@@ -13,6 +13,15 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app
+  .use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  })
+
   .use("/", express.static(__dirname + "/public/"))
 
   .use(express.json())
@@ -42,7 +51,7 @@ app
     );
   })
   .use("/api/users", usersController) //user controller is a router
-  .use("/api/posts", requireAuth, postsController) //we pass requireAuth before postsController and if its true it will call next and use postsController
+  .use("/api/posts", /*requireAuth,*/ postsController) //we pass requireAuth before postsController and if its true it will call next and use postsController
 
   //we want our error handling done here at the end
 

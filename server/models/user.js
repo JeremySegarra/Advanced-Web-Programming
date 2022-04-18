@@ -116,7 +116,9 @@ function fromToken(token) {
 }
 
 function seed() {
-  return collection.insertMany(list);
+  return list.forEach(async (x) => {
+    module.exports.create(x);
+  });
 }
 
 module.exports = {
