@@ -4,7 +4,8 @@ import Home from "../pages/Home.vue";
 // import Messages from "../pages/Messages.vue";
 import Generic from "../pages/Generic.vue";
 import Login from "../pages/Login.vue";
-import session from "../models/session";
+import { useSession } from "../models/session";
+//we can only initialize a pina object in Vue file
 
 // 2. Define some routes
 // Each route should map to a component.
@@ -34,6 +35,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
+  const session = useSession(); //We can initialize it in Vue function here not above This is a gottcha moment!!!!!!!!!!!!!!!
+
   //list of paths that require login!
   if (session.destinationUrl == null && to.path != "/login") {
     session.destinationUrl = to.path;

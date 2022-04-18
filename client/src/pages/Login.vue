@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Login } from "../models/session";
+import { useSession } from "../models/session";
 import { ref } from "vue";
-
+const session = useSession();
 const email = ref("");
 const password = ref("");
 
 function login() {
-  Login(email.value, password.value);
+  session.Login(email.value, password.value);
 }
 </script>
 
