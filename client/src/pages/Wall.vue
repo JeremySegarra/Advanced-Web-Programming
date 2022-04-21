@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 import PostVue from "../components/PostVue.vue";
 import { usePosts } from "../models/posts";
-
+const route = useRoute();
 const posts = usePosts();
-posts.fetchPosts(); // when the promise is done it will uopdates the posts automatically
+posts.fetchPosts(route.params.handle as string); // when the promise is done it will uopdates the posts automatically
 </script>
 
 <template>

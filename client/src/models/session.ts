@@ -40,14 +40,19 @@ export const useSession = defineStore("session", {
       this.user = null;
       router.push("/login");
     },
-
+    //we give headers a default value by useing = {}
     async api(
       url: string,
       data?: any,
       method?: "GET" | "POST" | "PUT" | "DELETE",
-      headers?: any
+      headers: any = {}
     ) {
       const messages = useMessages();
+      //if this user has a token
+      if (this.user?.token) {
+        headers.Authorization = `Bearer ${this.user.token}`;
+      }
+
       try {
         const response = await api(url, data, method, headers);
 

@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
   { path: "/contact", component: Generic, props: { title: "Contact Page!" } },
   { path: "/login", component: Login },
   { path: "/signup", component: Generic, props: { title: "SignUp Page!" } },
-  { path: "/wall", component: () => import("../pages/Wall.vue") },
+  { path: "/wall/:handle?", component: () => import("../pages/Wall.vue") }, //makes optional handle ?
   {
     path: "/hidden",
     component: Generic,
@@ -46,7 +46,7 @@ router.beforeEach((to, from) => {
   const protectedUrls = ["/messages", "/wall", "/feed", "/hidden"];
   console.table({ protectedUrls });
 
-  if (protectedUrls.includes(to.path)) {
+  if (protectedUrls.includes(to.path.toLowerCase())) {
     if (!session.user) {
       console.log("requires login");
 

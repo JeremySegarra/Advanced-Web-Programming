@@ -7,7 +7,7 @@ export function api(
   method?: string,
   headers?: HeadersInit
 ) {
-  let options: RequestInit = {};
+  let options: RequestInit = { headers };
 
   //means ?? OR
   //this is when we are sending a body
@@ -18,6 +18,7 @@ export function api(
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       body: JSON.stringify(body),
     };
