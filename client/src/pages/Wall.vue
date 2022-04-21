@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import { reactive } from "vue";
 import { useRoute } from "vue-router";
 import PostVue from "../components/PostVue.vue";
-import { usePosts } from "../models/posts";
+import { Post, usePosts } from "../models/posts";
+import PostEdit from "../components/PostEdit.vue";
+import { useSession } from "../models/session";
 const route = useRoute();
 const posts = usePosts();
 posts.fetchPosts(route.params.handle as string); // when the promise is done it will uopdates the posts automatically
+
+const session = useSession();
+
+const newPost = reactive<Post>({
+  src: "",
+  caption: "",
+  owner: "",
+  comments: [],
+  likes: [],
+  isPublic: false,
+  user: session.user,
+});
 </script>
 
 <template>
@@ -42,6 +57,7 @@ posts.fetchPosts(route.params.handle as string); // when the promise is done it 
       </div>
 
       <div class="column is-half">
+        <PostEdit :post="newPost" @save="posts.createPost(newPost)"></PostEdit>
         <PostVue
           v-for="post in posts.list"
           :key="post._id"
@@ -50,6 +66,8 @@ posts.fetchPosts(route.params.handle as string); // when the promise is done it 
       </div>
 
       <div class="column is-one-quarter">
+        <PostVue :post="newPost"></PostVue>
+
         <article class="panel is-primary">
           <p class="panel-heading">Primary</p>
           <p class="panel-tabs">

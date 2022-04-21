@@ -20,15 +20,21 @@ export const usePosts = defineStore("posts", {
       this.list = posts;
       console.log("posts", this.list);
     },
+
+    async createPost(post: Post) {
+      const newPost = await this.session.api("posts", post);
+      this.list.push(newPost);
+      console.log("posts", this.list);
+    },
   },
 });
 
 export interface Post {
-  _id: string;
+  _id?: string;
   src: string;
   caption: string;
   owner: string;
-  user: User;
+  user?: User;
   likes: string[];
   comments: any[];
   isPublic: boolean;

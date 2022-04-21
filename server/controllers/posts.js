@@ -31,6 +31,8 @@ app
       .catch(next);
   })
   .post("/", (req, res, next) => {
+    //this allows the owner of this post
+    req.body.owner = req.user.handle;
     postModel
       .create(req.body)
       .then((post) =>
