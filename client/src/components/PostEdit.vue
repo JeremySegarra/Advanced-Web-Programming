@@ -9,30 +9,32 @@ const { post } = defineProps<{
 <template>
   <div>
     <div class="card">
-      <form class="card-contents">
-        <label class="label">Image</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            v-model="post.src"
-            placeholder="Image"
-          />
+      <form class="card-content">
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              v-model="post.src"
+              placeholder="Image"
+            />
+          </div>
         </div>
         <div class="field">
-          <label class="label">Content</label>
           <div class="control">
             <textarea
               class="textarea"
               v-model="post.caption"
-              placeholder=""
+              placeholder="Caption"
             ></textarea>
           </div>
         </div>
         <div class="field">
-          <button class="button is-primary" @click.prevent="$emit('save')">
-            Update Posts
-          </button>
+          <div class="control">
+            <button class="button is-primary" @click.prevent="$emit('save')">
+              Update Post
+            </button>
+          </div>
         </div>
       </form>
     </div>

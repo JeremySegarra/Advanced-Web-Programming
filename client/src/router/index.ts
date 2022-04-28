@@ -22,6 +22,7 @@ const routes: RouteRecordRaw[] = [
     component: Generic,
     props: { title: "You reached the hidden page" },
   },
+  { path: "/weather", component: () => import("../pages/Weather.vue") },
 ];
 
 // 3. Create the router instance and pass the `routes` option
