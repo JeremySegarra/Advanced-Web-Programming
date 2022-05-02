@@ -15,6 +15,9 @@
     "vue": "^3.2.25"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.48.7",
+    "@types/google.accounts": "^0.0.0",
+    "@types/gapi.client": "^1.0.5",
     "sass": "^1.49.8",
     "sass-loader": "^12.6.0",
     "@vitejs/plugin-vue": "^2.2.0",

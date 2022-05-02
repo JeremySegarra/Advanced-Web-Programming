@@ -1,31 +1,55 @@
 import router from "../router";
 
-// import { User, list } from '../models/user'
 import * as users from "../models/user";
 import { useMessages } from "./messages";
 import { api } from "./myFetch";
 import { defineStore } from "pinia";
+import { decodeJWT, loadSrcipt } from "./utils";
 
 export const useSession = defineStore("session", {
   state: () => ({
-    user: null as users.User | null,
+    user: undefined as users.User | undefined,
     destinationUrl: null as string | null,
   }),
   actions: {
-    async Login(email: String, password: String) {
+    async GoogleLogin() {
+      await loadSrcipt(
+        "https://accounts.google.com/gsi/client",
+        "google-signin"
+      );
+      google.accounts.id.initialize({
+        client_id: <string>import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        callback: (x) => {
+          const user = decodeJWT(x.credential);
+          console.log(user);
+          this.user = {
+            id: user.sub,
+            email: user.email,
+            firstName: user.given_name,
+            lastName: user.family_name,
+            pic: user.picture,
+            handle: user.email,
+            password: "",
+          };
+        },
+      });
+      google.accounts.id.prompt(() => {});
+      //any code that happens after this will automatically wait and execute everything after this is loaded
+    },
+    async Login(email: string, password: string) {
       const messages = useMessages();
 
       try {
-        //We use the local api function not from my fetch
         const user = await this.api("users/login", { email, password });
 
         if (user) {
           messages.notifications.push({
             type: "success",
-            message: `Welcome Back ${user.firstName}!`,
+            message: `Welcome back ${user.firstName}!`,
           });
+
           this.user = user;
-          router.push(this.destinationUrl ?? "/wall"); //if destination value is not null then use /wall or vise versa
+          router.push(this.destinationUrl ?? "/wall");
         }
       } catch (error: any) {
         messages.notifications.push({
@@ -37,10 +61,10 @@ export const useSession = defineStore("session", {
     },
 
     Logout() {
-      this.user = null;
+      this.user = undefined;
       router.push("/login");
     },
-    //we give headers a default value by useing = {}
+
     async api(
       url: string,
       data?: any,
@@ -48,25 +72,23 @@ export const useSession = defineStore("session", {
       headers: any = {}
     ) {
       const messages = useMessages();
-      //if this user has a token
+
       if (this.user?.token) {
         headers.Authorization = `Bearer ${this.user.token}`;
       }
 
       try {
         const response = await api(url, data, method, headers);
-
         if (response.errors?.length) {
           throw { message: response.errors.join(", ") };
         }
-
         return await response.data;
       } catch (error: any) {
         messages.notifications.push({
           type: "danger",
           message: error.message,
         });
-        // console.table(messages.notifications);
+        //console.table(messages.notifications)
       }
     },
   },

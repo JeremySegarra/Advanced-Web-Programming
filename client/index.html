@@ -9,5 +9,14 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyART0ZlvfN7lXyTmIfNT89KQ7WbiWvh9YM&libraries=places&callback=initMap"
+    ></script>
+    <script>
+      const mapIsReady = new Promise(
+        (resolve) => (window.initMap = () => resolve())
+      );
+    </script>
   </body>
 </html>

@@ -50,6 +50,13 @@ function login() {
             <div class="field">
               <p class="control">
                 <button class="button is-success">Login</button>
+
+                <button
+                  class="button is-success"
+                  @click.prevent="session.GoogleLogin()"
+                >
+                  Google Login
+                </button>
               </p>
             </div>
           </form>
