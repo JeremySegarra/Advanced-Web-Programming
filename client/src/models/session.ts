@@ -17,11 +17,22 @@ export const useSession = defineStore("session", {
         "https://accounts.google.com/gsi/client",
         "google-signin"
       );
-      google.accounts.id.initialize({
+      console.log(import.meta.env.VITE_GOOGLE_CLIENT_ID);
+
+      const auth_Client = google.accounts.oauth2.initTokenClient({
         client_id: <string>import.meta.env.VITE_GOOGLE_CLIENT_ID,
-        callback: (x) => {
-          const user = decodeJWT(x.credential);
+        scope: "email profile",
+        callback: async (x) => {
+          const user = await fetch(
+            "http://www.googleapis.com/oauth2/v3/userinfo?alt=json",
+            {
+              headers: {
+                Authorization: `Bearer ${x.access_token}`,
+              },
+            }
+          ).then((x) => x.json());
           console.log(user);
+
           this.user = {
             id: user.sub,
             email: user.email,
@@ -33,7 +44,7 @@ export const useSession = defineStore("session", {
           };
         },
       });
-      google.accounts.id.prompt(() => {});
+      auth_Client.requestAccessToken();
       //any code that happens after this will automatically wait and execute everything after this is loaded
     },
     async Login(email: string, password: string) {
