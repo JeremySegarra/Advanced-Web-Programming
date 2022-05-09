@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Messages from "./Messages";
 // import { RouterLink } from "vue-router";
 // import LoginBadge from "./LoginBadge.vue";
 // import Messages from "./Messages.vue";
 
 // const NavLink = (props) => <a {...props}>{props.children}</a>;
 const LoginBadge = () => <></>;
-const Messages = () => <></>;
+// const Messages = () => <></>;
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(true);

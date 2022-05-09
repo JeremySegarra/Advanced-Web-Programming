@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import logo from "./assets/logo.svg";
 import "./assets/App.scss";
 import Nav from "./components/Nav";
+import useMessages, { MessagesContext } from "./models/messages";
 
 const HomePage = () => {
   return (
@@ -46,20 +47,22 @@ const NotFoundPage = () => {
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Nav />
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/weather" element={<Weather />} />
-            <Route path="/wall" element={<Wall />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+      <MessagesContext.Provider value={messages}>
+        <div className="App">
+          <Nav />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/weather" element={<Weather />} />
+              <Route path="/wall" element={<Wall />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </div>
         </div>
-      </div>
+      </MessagesContext.Provider>
     </BrowserRouter>
   );
 }
